@@ -3,6 +3,7 @@
 The student app is created for the hostel students to apply to outpass and to be able to complain about any inconvenience in hostels. 
 
 **Features** 
+
 **Registration** 
 The student has to fill out the registration form completely with their institutional email id. The information provided will be sent to the admin app for approval once the complete form is filled. The user will not be able to register again with the same details.
 
