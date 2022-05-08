@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:student/Widgets/menu.dart';
 
 class ThanksPage extends StatefulWidget {
-  const ThanksPage({Key? key}) : super(key: key);
-
+  ThanksPage({Key? key, required this.map}) : super(key: key);
+  Map<String, dynamic> map;
   @override
-  State<ThanksPage> createState() => _ThanksPageState();
+  State<ThanksPage> createState() => _ThanksPageState(thankyou_map: map);
 }
 
 class _ThanksPageState extends State<ThanksPage> {
+  _ThanksPageState({Key? key, required this.thankyou_map});
+  Map<String, dynamic> thankyou_map;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +67,26 @@ class _ThanksPageState extends State<ThanksPage> {
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
-                )
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) {
+                        return Menu(
+                            name: thankyou_map['user']['Name'],
+                            map: thankyou_map);
+                      }));
+                    },
+                    child: Text(
+                      "Back to DashBoard",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ))
               ],
             ),
           ),

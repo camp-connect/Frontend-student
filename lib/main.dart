@@ -1,21 +1,78 @@
+// @dart=2.9
+
 import 'package:flutter/material.dart';
 import './Widgets/login.dart';
 import './Widgets/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import './Widgets/menu.dart';
+import 'SplashScreen.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Student', initialRoute: '/', home: Student());
+    return MaterialApp(title: 'Student', initialRoute: '/', home: Splash());
   }
 }
 
-class Student extends StatelessWidget {
+class Student extends StatefulWidget {
+  @override
+  State<Student> createState() => _StudentState();
+}
+
+class _StudentState extends State<Student> {
+  // SharedPreferences logindata;
+  // bool newuser;
+  // Map<String, dynamic> map;
+
+  // bool _pisObscure = true;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+
+  //   check_if_already_login();
+  // }
+
+  // void check_if_already_login() async {
+  //   logindata = await SharedPreferences.getInstance();
+  //   print(logindata.getString('username'));
+  //   print(logindata.getString('password'));
+
+  //   newuser = (logindata.getBool('login') ?? true);
+  //   print(newuser);
+
+  //   // Map<String, String> body = {
+  //   //   'EmailId': 'iamhunter1@jklu.edu.in',
+  //   //   'Passwords': '1234567'
+  //   // };
+
+  //   if (newuser == false) {
+  //     // await login(context);
+  //     print("hellp");
+
+  //     String encodeMap = logindata.getString('profileData') ?? "";
+  //     print(encodeMap);
+  //     Map<String, dynamic> newmap = jsonDecode(encodeMap);
+  //     print(newmap);
+
+  //     Navigator.pushReplacement(
+  //       context,
+  //       new MaterialPageRoute(
+  //           builder: (context) =>
+  //               Menu(name: newmap['user']['Name'], map: newmap)),
+  //     );
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +169,7 @@ class Student extends StatelessWidget {
           //   style: ElevatedButton.styleFrom(
           //       fixedSize: const Size(300, 40), primary: Colors.grey),
           // ),
+
           Container(
             height: 40.0,
             child: RaisedButton(

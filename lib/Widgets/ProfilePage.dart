@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student/main.dart';
+import 'menu.dart';
+import 'login.dart';
+
+var email;
+var name;
+var rollNumber;
+var roomNumber;
+var personalContactNumber;
+var parentsContactNumber;
+var mentorname;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.map}) : super(key: key);
@@ -27,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Card(
             elevation: 50,
             shadowColor: Colors.black,
-            color: Colors.blueGrey.shade100,
+            color: Colors.blue[50],
             child: SizedBox(
               width: 330,
               height: 600,
@@ -43,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       radius: 80,
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
-                            'https://cdn.pixabay.com/photo/2017/01/31/21/23/avatar-2027365_1280.png'),
+                            'https://img.freepik.com/free-vector/boy-with-dental-braces-dental-care-little-boy-portrait-circular-frame_254685-951.jpg?w=740'),
                         radius: 75,
                         backgroundColor: Colors.white54,
                       ), //CircleAvatar
@@ -177,18 +188,59 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: 25,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) {
-                            return Student();
-                          },
-                        ));
-                      },
-                      child: Text("Logout", style: TextStyle(fontSize: 18)),
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 50),
-                          primary: Color.fromRGBO(88, 101, 242, 1)),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     eraseData();
+                    //     Navigator.of(context).pushAndRemoveUntil(
+                    //         MaterialPageRoute(
+                    //       builder: (_) {
+                    //         return Student();
+                    //       },
+                    //     ), (route) => false);
+                    //   },
+                    //   child: Text("Logout", style: TextStyle(fontSize: 18)),
+                    //   style: ElevatedButton.styleFrom(
+                    //       fixedSize: const Size(300, 50),
+                    //       primary: Color.fromRGBO(88, 101, 242, 1)),
+                    // ),
+                    Container(
+                      height: 50.0,
+                      child: RaisedButton(
+                        onPressed: () {
+                          eraseData();
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (_) {
+                              return Login();
+                            },
+                          ));
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(80.0)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xff374ABE), Color(0xff64B6FF)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(100.0)),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: 300.0, minHeight: 50.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Logout",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -198,5 +250,10 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<void> eraseData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:student/Widgets/ProfilePage.dart';
+import 'package:student/Widgets/gate_pass_history.dart';
 import 'package:student/Widgets/gate_pass_request.dart';
 import 'package:student/Widgets/register_complaint.dart';
 
@@ -15,6 +16,11 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  static const TextStyle optionStyle = TextStyle(
+    fontSize: 25,
+    color: Colors.brown,
+    fontWeight: FontWeight.w500,
+  );
   _MenuState({Key? key, required this.new_name, required this.new_map});
   final String new_name;
   final Map<String, dynamic> new_map;
@@ -68,105 +74,267 @@ class _MenuState extends State<Menu> {
         child: PageView(
           controller: pageController,
           children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(40, 100, 0, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (_) {
-                  //         return GatePassRequest();
-                  //       },
-                  //     ));
-                  //   },
-                  //   style: raisedButtonStyle,
-                  //   child: Text("Request Gate Pass"),
-                  // ),
-                  Container(
-                    margin: EdgeInsets.only(left: 35),
-                    child: Text(
-                      "Welcome, ${this.new_name}",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+            ListView(
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 30, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     Navigator.of(context).push(MaterialPageRoute(
+                      //       builder: (_) {
+                      //         return GatePassRequest();
+                      //       },
+                      //     ));
+                      //   },
+                      //   style: raisedButtonStyle,
+                      //   child: Text("Request Gate Pass"),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(left: 35),
+                      //   child: Text(
+                      //     "Welcome, ${this.new_name}",
+                      //     style: TextStyle(
+                      //       fontSize: 22,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      // ),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        height: 100,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(50),
+                          ),
+                          color: Color(0xFF363F93),
+                        ),
+                        // child: Stack(
+                        //   children: [
+                        //     // Positioned(
+                        //     //   top: 80,
+                        //     //   left:0,
+                        //     //   child: Container(
+                        //     //     height: ,
+                        //     //   ),
+                        //     // ),
+                        //   ],
+                        // ),
+                        child: Center(
+                            child: Text(
+                          "Welcome, ${this.new_name.split(' ')[0]}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'sans-serif',
+                            fontSize: 20,
+                          ),
+                        )),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                      SizedBox(
+                        height: 20,
+                      ),
 
-                  ButtonTheme(
-                    minWidth: 320,
-                    height: 80,
-                    child: RaisedButton(
-                      color: Color(0xFF162A49),
-                      child: Text(
-                        'Request Gate Pass',
-                        style: TextStyle(fontSize: 18),
+                      //
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (_) {
+                              //     return OutPassRequests();
+                              //   },
+                              //   settings: RouteSettings(
+                              //     name: 'OutPass',
+                              //   ),
+                              // ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return GatePassRequest(
+                                      map: new_map,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 200,
+                              // margin: const EdgeInsets.all(15.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/outpass .jpg'),
+                                    fit: BoxFit.fill),
+                              ),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Out Pass',
+                                    textAlign: TextAlign.left,
+                                    style: optionStyle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
+                      SizedBox(
+                        height: 15,
                       ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) {
-                            return GatePassRequest(
-                              map: new_map,
-                            );
-                          },
-                        ));
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (_) {
-                  //         return RegisterComplaint();
-                  //       },
-                  //     ));
-                  //   },
-                  //   style: raisedButtonStyle,
-                  //   child: Text("Register Complain"),
-                  // ),
-                  ButtonTheme(
-                    minWidth: 320,
-                    height: 80,
-                    child: RaisedButton(
-                      color: Colors.pink,
-                      child: Text(
-                        'Register Complain',
-                        style: TextStyle(fontSize: 18),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (_) {
+                              //     return OutPassRequests();
+                              //   },
+                              //   settings: RouteSettings(
+                              //     name: 'OutPass',
+                              //   ),
+                              // ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return RegisterComplaint(
+                                      map: new_map,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 200,
+                              // margin: const EdgeInsets.all(15.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/complaint.jpg'),
+                                    fit: BoxFit.fill),
+                              ),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Register Complaint',
+                                    textAlign: TextAlign.left,
+                                    style: optionStyle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
+                      SizedBox(
+                        height: 15,
                       ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) {
-                            return RegisterComplaint(
-                              map: new_map,
-                            );
-                          },
-                        ));
-                      },
-                    ),
+
+                      //THIRD ONE
+
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return GatePassHistory(
+                                      map: new_map,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 200,
+                              // margin: const EdgeInsets.all(15.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/history.jpg'),
+                                    fit: BoxFit.fill),
+                              ),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'OutPass History',
+                                    textAlign: TextAlign.left,
+                                    style: optionStyle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     Navigator.of(context).push(MaterialPageRoute(
+                      //       builder: (_) {
+                      //         return RegisterComplaint();
+                      //       },
+                      //     ));
+                      //   },
+                      //   style: raisedButtonStyle,
+                      //   child: Text("Register Complain"),
+                      // ),
+
+                      // ButtonTheme(
+                      //   minWidth: 320,
+                      //   height: 80,
+                      //   child: RaisedButton(
+                      //     color: Colors.pink,
+                      //     child: Text(
+                      //       'Register Complain',
+                      //       style: TextStyle(fontSize: 18),
+                      //     ),
+                      //     textColor: Colors.white,
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(50),
+                      //     ),
+                      //     onPressed: () {
+                      //       Navigator.of(context).push(MaterialPageRoute(
+                      //         builder: (_) {
+                      //           return RegisterComplaint(
+                      //             map: new_map,
+                      //           );
+                      //         },
+                      //       ));
+                      //     },
+                      //   ),
+                      // ),
+                      // Container(
+                      //   height: 150,
+                      //   child: const Image(
+                      //       image: AssetImage("assets/images/menu_background.png")),
+                      // ),
+                    ],
                   ),
-                  Container(
-                    height: 300,
-                    child: const Image(
-                        image: AssetImage("assets/images/menu_background.png")),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             ProfilePage(map: new_map),
           ],

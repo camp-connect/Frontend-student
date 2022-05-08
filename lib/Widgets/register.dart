@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:student/Widgets/config.dart';
 import './login.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
+import 'package:flushbar/flushbar.dart';
+import 'package:motion_toast/motion_toast.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  Register({Key? key}) : super(key: key);
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
 
-  Register({Key? key}) : super(key: key);
   var signup_emailController = TextEditingController();
+
   var signup_passController = TextEditingController();
+
   var signup_personalContactController = TextEditingController();
+
   var signup_nameController = TextEditingController();
+
   var signup_rollController = TextEditingController();
+
   var signup_roomController = TextEditingController();
+
   var signup_parentsContactController = TextEditingController();
+
   var signup_mentorController = TextEditingController();
+
+  bool _pisObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -70,16 +88,16 @@ class Register extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
                           ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.red, width: 2),
-                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide:
                                 BorderSide(color: Colors.blue, width: 2),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
                           ),
                         ),
                       ),
@@ -98,7 +116,7 @@ class Register extends StatelessWidget {
                         autocorrect: true,
                         decoration: InputDecoration(
                           hintText: 'Enter Your Name',
-                          prefixIcon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.person),
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
                           fillColor: Colors.white70,
@@ -120,6 +138,11 @@ class Register extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
                           ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
                         ),
                       ),
                     ),
@@ -129,20 +152,31 @@ class Register extends StatelessWidget {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter password';
+                            return 'Password  required !';
+                          } else if (value.length < 6) {
+                            return 'Password length must be atleast 6 !';
                           }
                           return null;
                         },
                         controller: signup_passController,
-                        obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
+                        obscureText: _pisObscure,
+                        autocorrect: true,
                         decoration: InputDecoration(
-                          hintText: 'Enter Password',
+                          hintText: 'Password',
                           prefixIcon: Icon(Icons.password),
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
                           fillColor: Colors.white70,
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)),
@@ -156,10 +190,17 @@ class Register extends StatelessWidget {
                             borderSide:
                                 BorderSide(color: Colors.blue, width: 2),
                           ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _pisObscure
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _pisObscure = !_pisObscure;
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -197,6 +238,11 @@ class Register extends StatelessWidget {
                                 BorderSide(color: Colors.blue, width: 2),
                           ),
                           errorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
@@ -240,6 +286,11 @@ class Register extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
                           ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
                         ),
                       ),
                     ),
@@ -275,6 +326,11 @@ class Register extends StatelessWidget {
                                 BorderSide(color: Colors.blue, width: 2),
                           ),
                           errorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
@@ -318,6 +374,11 @@ class Register extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
                           ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
                         ),
                       ),
                     ),
@@ -357,11 +418,16 @@ class Register extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(10.0)),
                             borderSide: BorderSide(color: Colors.red, width: 2),
                           ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.red, width: 2),
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     // ElevatedButton(
                     //   onPressed: () {
@@ -377,16 +443,22 @@ class Register extends StatelessWidget {
                     //       primary: Color.fromRGBO(88, 101, 242, 1)),
                     // ),
                     Container(
-                      height: 40.0,
+                      height: 50.0,
                       child: RaisedButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (!_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
+                              const SnackBar(
+                                  content: Text('Fill Complete Form')),
                             );
+                            // MotionToast.error(
+                            //         title: Text("Fill Complete Form"),
+                            //         description:
+                            //             Text("All the Fields are mandatory"))
+                            //     .show(context);
+                          } else {
+                            register(context);
                           }
-
-                          register(context);
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(80.0)),
@@ -406,7 +478,10 @@ class Register extends StatelessWidget {
                             child: Text(
                               "Register",
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),
@@ -418,44 +493,8 @@ class Register extends StatelessWidget {
             )));
   }
 
-  // Future<void> register(context) async {
-  //   var headers = {'Content-Type': 'application/json'};
-  //   var request = http.Request(
-  //       'POST', Uri.parse('https://camp-connect-backend.herokuapp.com/api/signup/student'));
-
-  //   request.body = json.encode({
-  //     "userEmail": signup_emailController.text,
-  //     "userPassword": signup_passController.text,
-  //     "name": signup_nameController.text,
-  //     "roll": signup_rollController.text,
-  //     "room": signup_roomController.text,
-  //     "personalContact": signup_personalContactController.text,
-  //     "parentsContact": signup_parentsContactController.text,
-  //     "mentor": signup_mentorController.text
-  //   });
-
-  //   request.headers.addAll(headers);
-
-  //   http.StreamedResponse response = await request.send();
-
-  //   if (response.statusCode == 200) {
-  //     print(await response.stream.bytesToString());
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //       builder: (_) {
-  //         return Login();
-  //       },
-  //     ));
-  //   } else {
-  //     print(response.reasonPhrase);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text("Something went wrong"),
-  //       ),
-  //     );
-  //   }
-  // }
   Future<void> register(context) async {
-    String uri = "192.168.198.71:80";
+    String uri = Config.server;
     String path = '/campconnectadminapi/studentRegistrationApi.php';
     Map<String, String> headers = {"Access-Control-Allow-Origin": "*"};
 
@@ -484,18 +523,24 @@ class Register extends StatelessWidget {
     try {
       final response =
           await http.post(Uri.http(uri, path), headers: headers, body: body);
-
+      print(response.statusCode);
       final String str = jsonEncode(await response.body.toString());
       final decodedjson = jsonDecode(str);
       Map<String, dynamic> map = jsonDecode(decodedjson);
-      // List list = map as List;
-      // print(map['user']['EmailId']);
-      print(map['user']);
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) {
-          return Login();
-        },
-      ));
+      if (map['error'] == 200) {
+        // List list = map as List;
+        // print(map['user']['EmailId']);
+        print(map['user']);
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) {
+            return Login();
+          },
+        ));
+      } else {
+        MotionToast.error(
+                title: Text("Error"), description: Text(map['message']))
+            .show(context);
+      }
 
       print(response.body.toString());
     } catch (err) {
